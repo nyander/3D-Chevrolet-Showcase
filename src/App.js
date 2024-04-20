@@ -1,18 +1,33 @@
-import React from 'react';
+import { Canvas } from '@react-three/fiber';
+import React, { Suspense, useState } from 'react';
+import CarShow from './components/CarShow';
+import './style.css';
+import Navbar from './components/Navbar';
 
-function App() {
+const App = () => {
+  const [showInfoText, setShowInfoText] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [cameraPosition, setCameraPosition] = useState({ x: -5.5, y: 1.1, z: -1.5 });
+
+  const handleOptionClick = (option) => {
+      setSelectedOption(option);
+  };
+
   return (
-    <div style={{ textAlign: 'center' }}>
-      <header>
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          Learn React
-        </a>
-      </header>
+    <div className='app-container'>
+      <Navbar selectedOption={selectedOption} onOptionClick={handleOptionClick} />
+      <Suspense fallback={null}>
+        <Canvas shadows>
+          <CarShow
+            selectedOption={selectedOption}
+            cameraPosition={cameraPosition}
+            setCameraPosition={setCameraPosition}
+            showInfoText={showInfoText}
+          />
+        </Canvas>
+      </Suspense>
     </div>
   );
-}
+};
 
 export default App;

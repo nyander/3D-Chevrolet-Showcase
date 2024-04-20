@@ -1,0 +1,242 @@
+@font-face {
+  font-family: 'GrandSportCond';
+  src: url('../public/fonts/grandsportcond.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../public/fonts/inter/Inter-Bold.ttf') format('truetype');
+  font-weight: bold;
+}
+
+html, body, #root, canvas {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.app-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.start-button {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+}
+
+.main-navbar-options {
+  position: absolute;
+  color: #ffffff;
+  z-index: 100;
+  bottom: 5%;
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  font-weight: bold;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out;
+}
+
+.main-navbar-options.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.main-navbar-options.exit {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out;
+}
+
+.navigation-content {
+  align-items: end;
+  width: 95%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.navigation-content h2 {
+  margin: 0;
+  font-size: 40px;
+  line-height: 55px;
+}
+
+.main-navbar {
+  position: absolute;
+  width: 100%;
+  z-index: 100;
+  color: white;
+  height: 7cap;
+  display: flex;
+  justify-content: center;
+}
+
+.navbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 95%;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.chevrolet-logo {
+  margin: 0;
+  font-size: 1.5vw;
+  font-family: 'GrandSportCond', sans-serif;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.right-nav-content {
+  display: flex;
+  gap: 40px;
+}
+
+.info-paragraph {
+  position: fixed;
+  bottom: 60px;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 10;
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 20px;
+  cursor: pointer;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.line {
+  width: 100%;
+  height: 2px;
+  background-color: #ffffff;
+  transition: transform 0.3s ease;
+}
+
+.hamburger.active .line:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger.active .line:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active .line:nth-child(3) {
+  transform: translateY(-10px) rotate(-45deg);
+}
+
+.nav-info-header {
+  margin: 0;
+  font-size: 32px;
+}
+
+.nav-icon {
+  font-size: 24px;
+}
+
+.nav-info-content {
+  margin: 0;
+  margin-top: 5px;
+  font-size: 11px;
+}
+
+.left-nav-content h2 {
+  background-image: linear-gradient(to right, #ecececf0, #989898);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: background-image 0.3s ease;
+  cursor: pointer;
+}
+
+.left-nav-content h2,
+.right-nav-content div {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.main-navbar-options.active .left-nav-content h2,
+.main-navbar-options.active .right-nav-content div {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.2s;
+}
+
+.left-nav-content h2:hover {
+  background-image: none;
+  -webkit-text-fill-color: #ffffff;
+}
+
+.interest-point {
+  font-family: 'Inter', sans-serif;
+  position: absolute;
+  color: white;
+  padding: 14px;
+  width: 500px;
+  overflow: hidden;
+  border-radius: 30px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.interest-point.expanded {
+  transform: scale(1.2);
+}
+
+.point-marker {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: #000000;
+  transition: transform 0.3s ease;
+}
+
+.point-details {
+  max-width: 100%;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.interest-point.expanded .point-details {
+  opacity: 1;
+  visibility: visible;
+  margin-top: 10px;
+}
+
+.point-details h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.point-details p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+}

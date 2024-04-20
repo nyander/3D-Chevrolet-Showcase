@@ -3,9 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@react-three/drei": "9.105.2",
+    "@react-three/fiber": "^8.16.1",
+    "@react-three/postprocessing": "^2.16.2",
+    "@tweenjs/tween.js": "^23.1.1",
+    "leva": "^0.9.35",
+    "r3f-perf": "7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1"
+    "react-scripts": "5.0.1",
+    "three": "^0.163.0"
   },
   "scripts": {
     "start": "react-scripts start",
