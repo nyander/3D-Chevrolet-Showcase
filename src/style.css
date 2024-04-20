@@ -240,3 +240,26 @@ html, body, #root, canvas {
   font-size: 14px;
   line-height: 1.4;
 }
+
+@media (max-width: 768px) {
+  .chevrolet-logo {
+    font-size: 3.5vw;
+  }
+
+  .hamburger {
+    width: 25px;
+  }
+
+  .hamburger.active .line:nth-child(3) {
+    transform: translateY(-10px) rotate(-45deg);
+  }
+
+  .right-nav-content {
+    display: none;
+  }
+
+  .left-nav-content h2 {
+    font-size: 30px;
+    line-height: 45px;
+  }
+}

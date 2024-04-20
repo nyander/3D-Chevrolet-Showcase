@@ -1,5 +1,5 @@
 import { CubeCamera, Environment, Html, OrbitControls, PerspectiveCamera } from '@react-three/drei';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { Ground } from './Ground';
 import { useControls } from 'leva';
 import Car from './Car';
@@ -11,7 +11,7 @@ import Boxes from './Boxes';
 import { Vector3 } from 'three';
 import { Tween, Easing, update as tweenUpdate } from '@tweenjs/tween.js';
 
-const CarShow = ({ selectedOption, showInfoText }) => {
+const CarShow = ({ selectedOption, showInfoText, clickCount, firstLightIntensity, secondLightIntensity, bloomIntensity }) => {
   const carRef = useRef();
   const cameraRef = useRef(null);
   const controlsRef = useRef(null);
@@ -22,34 +22,28 @@ const CarShow = ({ selectedOption, showInfoText }) => {
   useEffect(() => {
     let targetPosition;
 
-    if (selectedOption === "Boxes") {
-      showBoxes === true ? setShowBoxes(false) : setShowBoxes(true)
-      setShowBoxes(!showBoxes);
-      console.log(showBoxes)
-    } else if (selectedOption === "Rings") {
-      showRings === true ? setShowRings(false) : setShowRings(true)
-      console.log(showRings)
-    } else {
-      switch (selectedOption) {
-        case 'Performance':
-          targetPosition = new Vector3(1.5, 2.6, -4);
-          break;
-        case 'Design':
-          targetPosition = new Vector3(3.7, 2.1, 2.9);
-          break;
-        case 'Wheel Utility':
-          targetPosition = new Vector3(2.5, 0.5, -2.3);
-          break;
-        default:
-          targetPosition = new Vector3(0.1, 6.0, 5.0);
-          break;
-      }
-
-      setShowRings(false);
-      setShowBoxes(false);
+    switch (selectedOption) {
+      case 'Performance':
+        targetPosition = new Vector3(1.5, 2.6, -4);
+        break;
+      case 'Design':
+        targetPosition = new Vector3(3.7, 2.1, 2.9);
+        break;
+      case 'Wheel Utility':
+        targetPosition = new Vector3(2.5, 0.5, -2.3);
+        break;
+      case 'Boxes':
+        setShowBoxes((prevState) => !prevState);
+        break;
+      case 'Rings':
+        setShowRings((prevState) => !prevState);
+        break;
+      default:
+        targetPosition = new Vector3(0.1, 6.0, 5.0);
+        break;
     }
 
-    if (cameraRef.current) {
+    if (cameraRef.current && targetPosition) {
       const cameraTween = new Tween(cameraRef.current.position)
         .to(targetPosition, 1000)
         .easing(Easing.Quadratic.InOut)
@@ -73,43 +67,7 @@ const CarShow = ({ selectedOption, showInfoText }) => {
         setTweenCompleted(false);
       };
     }
-  }, [selectedOption]);
-
-  const {
-    firstLightIntensity,
-    secondLightIntensity,
-    bloomIntensity,
-    cameraPositioning,
-    textPositioning,
-  } = useControls({
-    firstLightIntensity: {
-      value: 450,
-      min: 1,
-      max: 500,
-      step: 1,
-    },
-    secondLightIntensity: {
-      value: 345,
-      min: 1,
-      max: 500,
-      step: 1,
-    },
-    bloomIntensity: {
-      value: 0.25,
-      min: 0.1,
-      max: 5,
-      step: 0.1,
-    },
-    cameraPositioning: {
-      value: { x: 0, y: 0.5, z: 4 },
-      step: 0.1,
-    },
-    textPositioning: {
-      value: { x: 1, y: 2.5, z: 0 },
-      step: 0.1,
-    },
-  });
-
+  }, [selectedOption, clickCount]);
 
 
   return (
@@ -127,7 +85,9 @@ const CarShow = ({ selectedOption, showInfoText }) => {
         {(texture) => (
           <>
             <Environment map={texture} />
-            <Car ref={carRef} />
+            <Suspense>
+              <Car ref={carRef} />
+            </Suspense>
           </>
         )}
       </CubeCamera>

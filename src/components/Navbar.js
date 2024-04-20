@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 const Navbar = ({ selectedOption, onOptionClick }) => {
   const [isNavbarOptionsVisible, setIsNavbarOptionsVisible] = useState(false);
+  const [clickCount, setClickCount] = useState(0);
 
   const handleHamburgerClick = () => {
     setIsNavbarOptionsVisible(!isNavbarOptionsVisible);
@@ -10,6 +11,7 @@ const Navbar = ({ selectedOption, onOptionClick }) => {
   const handleOptionClick = (option) => {
     onOptionClick(option);
     setIsNavbarOptionsVisible(false);
+    setClickCount((prevCount) => prevCount + 1);
   }
 
   return (
@@ -39,21 +41,7 @@ const Navbar = ({ selectedOption, onOptionClick }) => {
               <h2 onClick={() => handleOptionClick('Boxes')}>Boxes</h2>
             </div>
             <div className='right-nav-content'>
-              <div>
-                <p className='nav-info-header'>2,100 <span className='nav-icon'>+</span></p>
-                <div className="line nav"></div>
-                <p className='nav-info-content'>Litres of Cargo</p>
-              </div>
-              <div>
-                <p className='nav-info-header'>331 <span className='nav-icon'>mi</span></p>
-                <div className="line nav"></div>
-                <p className='nav-info-content'>Range (WLTP)</p>
-              </div>
-              <div>
-                <p className='nav-info-header'>AWD </p>
-                <div className="line nav"></div>
-                <p className='nav-info-content'>Dual Motor</p>
-              </div>
+            
             </div>
           </div>
           {/* )} */}
